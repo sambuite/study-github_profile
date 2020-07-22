@@ -22,7 +22,7 @@ export const Header = styled.header`
   align-items: center;
   justify-content: space-between;
 
-  padding: 1rem 4rem;
+  padding: 1rem 14rem;
   width: 100vw;
 
   background-color: var(--color-primary);
@@ -86,6 +86,7 @@ export const ProfileCard = styled.div`
   img {
     width: 10rem;
     border-radius: 50%;
+    margin-bottom: 1rem;
   }
 
   strong, span {
@@ -123,4 +124,11 @@ export const ProfileCard = styled.div`
     color: var(--color-lighter)
   }
 
+`;
+
+export const Loading = styled.div`
+  margin-top: 20rem;
+  font-size: 4rem;
+  color: var(--color-secondary);
+  opacity: 40%;
 `;

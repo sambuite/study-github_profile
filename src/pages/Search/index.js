@@ -14,16 +14,15 @@ function Search() {
   const handleAddUser = async event => {
     event.preventDefault();
     console.log(gitUser)
-    try {
-      
-      const userData = await api.get(`/${gitUser}`)
-      console.log(userData) 
-      setGitUsersData([...gitUsersData, userData]);
-      console.log(gitUsersData) 
 
-    } catch (error) {
-      console.log(error)
-    }
+    const isIn = gitUsersData.find(user => user.data.login == gitUser);
+    if(isIn != undefined) return;
+
+    const userData = await api.get(`/${gitUser}`)
+    console.log(userData) 
+
+    setGitUsersData([...gitUsersData, userData]);
+    console.log(gitUsersData) 
   }
 
   const handleUserInput = event => {
@@ -48,70 +47,27 @@ function Search() {
         </form>
       </S.Header>
       <main>
-        <S.ProfileCard> 
-          <img src="https://avatars3.githubusercontent.com/u/51120780?v=4" alt=""/>
-          <a href="">
-            <strong>Murilo Sambuite</strong>
-          </a>
-            
-          <span className="bio">Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias, quia! Ut soluta vero quae unde, nobis laborum ex dolorum asperiores natus dolorem.</span>
-          <span className="details">Tobias Barreto - SE</span>
-          <span className="details">1000 seguidores</span>
-          <span className="details">100 repositorios</span>
-          <Link className="link" to={`/profile?user=sambuite`}>Acessar perfil</Link>
-        </S.ProfileCard>
+        {
+          gitUsersData.length < 1 ?
 
-        <S.ProfileCard> 
-          <img src="https://avatars3.githubusercontent.com/u/51120780?v=4" alt=""/>
-          <a href="">
-            <strong>Murilo Sambuite</strong>
-          </a>
-            
-          <span className="bio">Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias, quia! Ut soluta vero quae unde, nobis laborum ex dolorum asperiores natus dolorem.</span>
-          <span className="details">Tobias Barreto - SE</span>
-          <span className="details">1000 seguidores</span>
-          <span className="details">100 repositorios</span>
-          <Link className="link" to={`/profile?user=sambuite`}>Acessar perfil</Link>
-        </S.ProfileCard>
-
-        <S.ProfileCard> 
-          <img src="https://avatars3.githubusercontent.com/u/51120780?v=4" alt=""/>
-          <a href="">
-            <strong>Murilo Sambuite</strong>
-          </a>
-            
-          <span className="bio">Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias, quia! Ut soluta vero quae unde, nobis laborum ex dolorum asperiores natus dolorem.</span>
-          <span className="details">Tobias Barreto - SE</span>
-          <span className="details">1000 seguidores</span>
-          <span className="details">100 repositorios</span>
-          <Link className="link" to={`/profile?user=sambuite`}>Acessar perfil</Link>
-        </S.ProfileCard>
-
-        <S.ProfileCard> 
-          <img src="https://avatars3.githubusercontent.com/u/51120780?v=4" alt=""/>
-          <a href="">
-            <strong>Murilo Sambuite</strong>
-          </a>
-            
-          <span className="bio">Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias, quia! Ut soluta vero quae unde, nobis laborum ex dolorum asperiores natus dolorem.</span>
-          <span className="details">Tobias Barreto - SE</span>
-          <span className="details">1000 seguidores</span>
-          <span className="details">100 repositorios</span>
-          <Link className="link" to={`/profile?user=sambuite`}>Acessar perfil</Link>
-        </S.ProfileCard>
-
-        <S.ProfileCard> 
-          <img src="https://avatars3.githubusercontent.com/u/51120780?v=4" alt=""/>
-          <a href="">
-            <strong>Murilo Sambuite</strong>
-          </a>
-            
-          <span className="bio">Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias, quia! Ut soluta vero quae unde, nobis laborum ex dolorum asperiores natus dolorem.</span>
-          <span className="details">Tobias Barreto - SE</span>
-          <span className="details">1000 seguidores</span>
-          <span className="details">100 repositorios</span>
-          <Link className="link" to={`/profile?user=sambuite`}>Acessar perfil</Link>
-        </S.ProfileCard>
+          <S.Loading>Adicione um perfil do github...</S.Loading> 
+          
+          :
+          gitUsersData.map( user => (
+            <S.ProfileCard key={user.data.id}> 
+              <img src={user.data.avatar_url} alt=""/>
+              <a href={user.data.html_url}>
+                <strong>{user.data.name}</strong>
+              </a>
+                
+              <span className="bio">{user.data.bio}</span>
+              <span className="details">{user.data.location}</span>
+              <span className="details">{user.data.followers} seguidores</span>
+              <span className="details">{user.data.public_repos} repositórios públicos</span>
+              <Link className="link" to={`/profile?user=${user.data.login}`}>Acessar perfil</Link>
+          </S.ProfileCard>
+          ))
+        }
       </main>
     </S.Container>
   )
