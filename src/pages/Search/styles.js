@@ -6,6 +6,14 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
 
+  main {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
 `;
 
 export const Header = styled.header`
@@ -54,6 +62,65 @@ export const Header = styled.header`
     background-color: var(--color-light);
     border: 1px solid var(--color-light);
     color: var(--color-primary);
+  }
+`;
+
+export const ProfileCard = styled.div`
+  width: 20rem;
+  height: 30rem;
+  margin: 5rem 5rem 0;
+  background-color: var(--color-lighter);
+  box-shadow: 10px 9px 40px var(--color-shadow-light);
+  border-radius: 8px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  a, .link {
+    text-decoration: none;
+    color: var(--color-dark);
+  }
+
+  img {
+    width: 10rem;
+    border-radius: 50%;
+  }
+
+  strong, span {
+    margin: 0.5rem 1.5rem;
+  }
+
+  strong {
+    font-size: 1.3rem;
+  }
+
+  .bio {
+    font-size: 0.9rem;
+    margin-top: 1.3rem;
+    color: var(--color-shadow-light)
+  }
+
+  .details {
+    font-weight: 500;
+  }
+  
+  .link {
+    margin-top: 1rem;
+    border: 1px solid var(--color-secondary);
+    border-radius: 8px;
+    width: 7rem;
+    height: 3rem;
+    padding-top: 0.8rem;
+    text-align: center;
+    font-weight: 600;
+    transition: 300ms;
+  }
+
+  .link:hover {
+    background-color: var(--color-secondary);
+    color: var(--color-lighter)
   }
 
 `;

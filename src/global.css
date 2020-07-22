@@ -4,7 +4,9 @@
    --color-primary:#221f3b ;
    --color-secondary: #6f4a8e;
    --color-dark: #050505;
+   --color-shadow-light:#8a898f ;
    --color-light: #ebebeb;
+   --color-lighter: #fff;
 }
 
 * {
@@ -16,6 +18,7 @@
 
 body {
    background-color: var(--color-light);
+   color: var(--color-dark);
    font: 400 14px Roboto, sans-serif;
    -webkit-font-smoothing: antialiased;
 }
