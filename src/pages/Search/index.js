@@ -1,4 +1,4 @@
-import React , { useState } from 'react';
+import React , { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import * as S from './styles';
@@ -10,25 +10,41 @@ function Search() {
   const [ gitUsersData, setGitUsersData ] = useState([]);
   // const [ gitUsers, setGitUsers ] = useState([]);
 
+  useEffect(() => {
+    setLocalUsers();
+  }, [])
+
 
   const handleAddUser = async event => {
     event.preventDefault();
-    console.log(gitUser)
 
-    const isIn = gitUsersData.find(user => user.data.login == gitUser);
-    if(isIn != undefined) return;
+    const isIn = gitUsersData.find(user => user.login === gitUser);
+    if(isIn !== undefined || gitUser === '' ) return;
+    
 
-    const userData = await api.get(`/${gitUser}`)
-    console.log(userData) 
+    const { data: userData} = await api.get(`/${gitUser}`)
 
     setGitUsersData([...gitUsersData, userData]);
-    console.log(gitUsersData) 
+
+    saveUserLocal([...gitUsersData, userData]);
+
+    setGitUser('');
   }
 
   const handleUserInput = event => {
     const userInput = event.target.value
     setGitUser(userInput)
   }  
+
+  const saveUserLocal = (data) => {
+    localStorage.setItem("users_data", JSON.stringify(data));
+  }
+
+  const setLocalUsers = () => {
+    const data = localStorage.getItem('users_data');
+    const parsedData = JSON.parse(data)
+    setGitUsersData([...gitUsersData, ...parsedData]);
+  }
 
   return (
     <S.Container>
@@ -54,17 +70,17 @@ function Search() {
           
           :
           gitUsersData.map( user => (
-            <S.ProfileCard key={user.data.id}> 
-              <img src={user.data.avatar_url} alt=""/>
-              <a href={user.data.html_url}>
-                <strong>{user.data.name}</strong>
+            <S.ProfileCard key={user.id}> 
+              <img src={user.avatar_url} alt=""/>
+              <a href={user.html_url}>
+                <strong>{user.name}</strong>
               </a>
                 
-              <span className="bio">{user.data.bio}</span>
-              <span className="details">{user.data.location}</span>
-              <span className="details">{user.data.followers} seguidores</span>
-              <span className="details">{user.data.public_repos} repositórios públicos</span>
-              <Link className="link" to={`/profile?user=${user.data.login}`}>Acessar perfil</Link>
+              <span className="bio">{user.bio}</span>
+              <span className="details">{user.location}</span>
+              <span className="details">{user.followers} seguidores</span>
+              <span className="details">{user.public_repos} repositórios públicos</span>
+              <Link className="link" to={`/profile?user=${user.login}`}>Acessar perfil</Link>
           </S.ProfileCard>
           ))
         }
