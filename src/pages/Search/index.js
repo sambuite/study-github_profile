@@ -12,7 +12,9 @@ function Search() {
   useEffect(() => {
     const setLocalUsers = () => {
       const data = localStorage.getItem('users_data');
+      if(!data) return;
       const parsedData = JSON.parse(data)
+
       setGitUsersData([...gitUsersData, ...parsedData]);
     }
     setLocalUsers();
@@ -77,7 +79,7 @@ function Search() {
               <span className="details">{user.followers} seguidores</span>
               <span className="details">{user.public_repos} repositórios públicos</span>
               <Link className="link" to={`/profile?user=${user.login}`}>Acessar perfil</Link>
-          </S.ProfileCard>
+            </S.ProfileCard>
           ))
         }
       </main>
