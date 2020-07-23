@@ -17,6 +17,8 @@ Clone this repository:
 
 ```
   git clone https://github.com/sambuite/github-profile.git
+
+  cd github-profile
 ```
 
 Run the following scripts :
