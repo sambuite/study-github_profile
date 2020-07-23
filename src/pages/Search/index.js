@@ -18,14 +18,12 @@ function Search() {
     setLocalUsers();
   }, []);
 
-
   const handleAddUser = async event => {
     event.preventDefault();
 
     const isIn = gitUsersData.find(user => user.login === gitUser);
     if(isIn !== undefined || gitUser === '' ) return;
     
-
     const { data: userData} = await api.get(`/${gitUser}`)
 
     setGitUsersData([...gitUsersData, userData]);

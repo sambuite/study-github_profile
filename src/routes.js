@@ -10,7 +10,6 @@ export default function Routes(){
          <Switch>
             <Route path="/" exact component={Search} />
             <Route path="/profile" component={Profile} />
-            <Redirect from='*' to='/' />
          </Switch>
       </BrowserRouter>
    );

@@ -16,13 +16,13 @@ function Profile(props) {
     const user = param.replace('?user=', '');
     getUserData(user);
     getUserRepos(user);
-  }, [])
+  }, [props.location.search])
 
   const getUserData = (user) => {
     const localData = localStorage.getItem('users_data') 
     const parsedData = JSON.parse(localData);
     const userData = parsedData.filter(users => users.login === user);
-    if(userData.length == 0) history.push('/');
+    if(userData.length === 0) history.push('/');
     setGitUserData(...userData);
   }
 
@@ -42,7 +42,6 @@ function Profile(props) {
         <span className="details"><b>{gitUserData.followers}</b> seguidores</span>
         <span className="details"><b>{gitUserData.public_repos}</b> repositórios públicos</span>
       </S.Sidebar>
-
       <main>
         {
           !gitUserRepos.length < 1 &&

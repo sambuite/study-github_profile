@@ -69,7 +69,6 @@ export const Repo = styled.div`
   align-items: center;
   justify-content: center;
 
-
   position: relative;
 
   width: 30rem;
