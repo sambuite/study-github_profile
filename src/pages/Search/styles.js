@@ -99,6 +99,7 @@ export const ProfileCard = styled.div`
 
   .bio {
     font-size: 0.9rem;
+    text-align: center;
     margin-top: 1.3rem;
     color: var(--color-shadow-light)
   }
