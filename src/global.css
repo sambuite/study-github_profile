@@ -21,6 +21,7 @@ body {
    color: var(--color-dark);
    font: 400 14px Roboto, sans-serif;
    -webkit-font-smoothing: antialiased;
+   overflow-x: hidden;
 }
 
 input, button, textarea {
