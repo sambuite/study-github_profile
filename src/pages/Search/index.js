@@ -8,11 +8,15 @@ import api from '../../services/api';
 function Search() {
   const [ gitUser, setGitUser ] = useState('');
   const [ gitUsersData, setGitUsersData ] = useState([]);
-  // const [ gitUsers, setGitUsers ] = useState([]);
 
   useEffect(() => {
+    const setLocalUsers = () => {
+      const data = localStorage.getItem('users_data');
+      const parsedData = JSON.parse(data)
+      setGitUsersData([...gitUsersData, ...parsedData]);
+    }
     setLocalUsers();
-  }, [])
+  }, []);
 
 
   const handleAddUser = async event => {
@@ -38,12 +42,6 @@ function Search() {
 
   const saveUserLocal = (data) => {
     localStorage.setItem("users_data", JSON.stringify(data));
-  }
-
-  const setLocalUsers = () => {
-    const data = localStorage.getItem('users_data');
-    const parsedData = JSON.parse(data)
-    setGitUsersData([...gitUsersData, ...parsedData]);
   }
 
   return (
