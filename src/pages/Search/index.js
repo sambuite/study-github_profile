@@ -28,7 +28,29 @@ function Search() {
     const isIn = gitUsersData.find(user => user.login === gitUser);
     if(isIn !== undefined || gitUser === '' ) return;
     
-    const { data: userData} = await api.get(`/${gitUser}`)
+    const { data: {  
+      avatar_url,
+      bio,
+      followers,
+      login,
+      name,
+      location,
+      public_repos,
+      repos_url,
+      id  
+    } } = await api.get(`/${gitUser}`);
+
+    const userData = {
+      avatar_url,
+      bio,
+      followers,
+      login,
+      name,
+      location,
+      public_repos,
+      repos_url,
+      id
+    };
 
     setGitUsersData([...gitUsersData, userData]);
 
