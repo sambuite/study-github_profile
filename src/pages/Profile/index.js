@@ -39,15 +39,15 @@ function Profile(props) {
     const userRepos = usersData[userIndex].repos;
     const userReposLength = Object.keys(userRepos);
     
-    let reposs = [];
+    let repos = [];
 
     userReposLength.map(repo => {
-      reposs.push(userRepos[repo])
+      repos.push(userRepos[repo])
     })
 
-    if(userReposLength < 1)  {
+    if(false)  {
       const { data } = await api.get(`/${user}/repos`);
-      reposs = data.map(repo => ({
+      repos = data.map(repo => ({
           id : repo.id,
           name : repo.name,
           description : repo.description,
@@ -57,8 +57,8 @@ function Profile(props) {
         }));
     }
 
-    saveReposLocal(reposs, user);
-    setGitUserRepos(reposs);
+    saveReposLocal(repos, user);
+    setGitUserRepos(repos);
   }
 
   const saveReposLocal = (reposData, user) => {
