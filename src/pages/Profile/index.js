@@ -16,60 +16,66 @@ function Profile(props) {
     const user = param.replace('?user=', '');
     handleUserData(user);
     handleUserRepos(user);
-  }, [props.location.search])
+  }, [props.location.search]);
 
   const handleUserData = (user) => {
-    const usersData = getUserData(user);
+    const usersData = getUsersLocalData();
     const userData = usersData.filter(users => users.login === user);
     if(userData.length === 0) history.push('/');
     setGitUserData(...userData);
   }
 
-  const getUserData = (user) => {
-    const localData = localStorage.getItem('users_data') 
+  const getUsersLocalData = () => {
+    const localData = localStorage.getItem('users_data') ;
     const parsedData = JSON.parse(localData);
 
     return parsedData;
   }
 
   const handleUserRepos = async (user) => {
-    const { data } = await api.get(`/${user}/repos`);
 
-    const repos = data.map(repo => {
-      const {
-        id,
-        name,
-        description,
-        stargazers_count,
-        forks_count,
-        language
-      } = repo;
+    const usersData = getUsersLocalData();
+    const userIndex = usersData.findIndex(users => users.login === user);
+    const userReposLength = Object.keys(usersData[userIndex].repos);
 
-      return {
-        id,
-        name,
-        description,
-        stargazers_count,
-        forks_count,
-        language
-      }
-    })
+    let repos = usersData[userIndex].repos;
 
+    if(!userReposLength < 1)  {
+      const { data } = await api.get(`/${user}/repos`);
+      repos = data.map(repo => {
+        const {
+          id,
+          name,
+          description,
+          stargazers_count,
+          forks_count,
+          language
+        } = repo;
+
+        return {
+          id,
+          name,
+          description,
+          stargazers_count,
+          forks_count,
+          language
+        }
+      });
+    }
     saveReposLocal(repos, user);
     setGitUserRepos(repos);
   }
 
   const saveReposLocal = (reposData, user) => {
-    const userData = getUserData(user);
+    const usersData = getUsersLocalData();
+    const userIndex = usersData.findIndex(users => users.login === user);
 
-    const userIndex = userData.findIndex(users => users.login === user);
-
-    userData[userIndex].repos = {
+    usersData[userIndex].repos = {
       ...reposData
     }
 
     const data = [
-      ...userData
+      ...usersData
     ]
 
     localStorage.setItem("users_data", JSON.stringify(data));
