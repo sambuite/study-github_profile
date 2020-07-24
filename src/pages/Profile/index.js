@@ -45,7 +45,7 @@ function Profile(props) {
       repos.push(userRepos[repo])
     })
 
-    if(false)  {
+    if(userReposLength < 1)  {
       const { data } = await api.get(`/${user}/repos`);
       repos = data.map(repo => ({
           id : repo.id,
