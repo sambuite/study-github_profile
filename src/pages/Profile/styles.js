@@ -106,8 +106,13 @@ export const Sidebar = styled.div`
     margin-top: 2rem;
     font-size: 1rem;
     color: var(--color-light);
-    text-decoration: underline;
+    text-decoration: none;
     cursor: pointer;
+    transition: 200ms;
+  }
+
+  && > a:hover {
+    color: var(--color-primary);
   }
 `;
 
