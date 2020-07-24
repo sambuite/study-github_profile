@@ -17,7 +17,7 @@ function Search() {
       if(!data) return;
       const parsedData = JSON.parse(data)
 
-      setGitUsersData([...gitUsersData, ...parsedData]);
+      setGitUsersData(oldUser => [...oldUser, ...parsedData]);
     }
     setLocalUsers();
   }, []);
