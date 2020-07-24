@@ -35,8 +35,14 @@ function Profile(props) {
   const handleUserRepos = async (user) => {
     const usersData = getUsersLocalData();
     const userIndex = usersData.findIndex(users => users.login === user);
+
+    if(userIndex === -1) {
+      history.push('/'); 
+      return
+    };
+
     const userRepos = usersData[userIndex].repos;
-    
+
     let repos = [...Object.values(userRepos)];
 
     if(Object.keys(userRepos) < 1)  {
@@ -90,16 +96,17 @@ function Profile(props) {
     saveReposLocal(repos, user);
     setGitUserRepos(repos);
   }
+
   return (
     <S.Container>
       <S.Sidebar>
         <div className="handle">
           <Link to="/" className="button">Voltar</Link>
-          <a  
+          <span  
             className="button"
             onClick={updateRepos}>
               Atualizar
-          </a>
+          </span>
         </div>
 
         <img src={gitUserData.avatar_url} alt={gitUserData.name}/>
@@ -112,6 +119,7 @@ function Profile(props) {
         <a 
           href={gitUserData.html_url}
           target="_blank"
+          rel="noopener noreferrer"
         >Ver github</a>
       </S.Sidebar>
       <main>
@@ -126,7 +134,12 @@ function Profile(props) {
                 <span><b>{repos.forks_count}</b> forks</span>
                 <span><b>{repos.language}</b></span>
               </div>
-              <a href={repos.html_url} className="link">Acessar repositório</a>
+              <a 
+                href={repos.html_url} 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="link"
+              >Acessar repositório</a>
             </S.Repo>
           ))
         }
