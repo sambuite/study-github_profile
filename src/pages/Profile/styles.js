@@ -59,6 +59,7 @@ export const Sidebar = styled.div`
     font-weight: bold;
     color: var(--color-lighter);
     border: 1px solid var(--color-lighter);
+    border-radius: 8px;
 
     transition: 300ms;
   }
