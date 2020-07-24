@@ -36,34 +36,29 @@ function Profile(props) {
 
     const usersData = getUsersLocalData();
     const userIndex = usersData.findIndex(users => users.login === user);
-    const userReposLength = Object.keys(usersData[userIndex].repos);
+    const userRepos = usersData[userIndex].repos;
+    const userReposLength = Object.keys(userRepos);
+    
+    let reposs = [];
 
-    let repos = usersData[userIndex].repos;
+    userReposLength.map(repo => {
+      reposs.push(userRepos[repo])
+    })
 
-    if(!userReposLength < 1)  {
+    if(userReposLength < 1)  {
       const { data } = await api.get(`/${user}/repos`);
-      repos = data.map(repo => {
-        const {
-          id,
-          name,
-          description,
-          stargazers_count,
-          forks_count,
-          language
-        } = repo;
-
-        return {
-          id,
-          name,
-          description,
-          stargazers_count,
-          forks_count,
-          language
-        }
-      });
+      reposs = data.map(repo => ({
+          id : repo.id,
+          name : repo.name,
+          description : repo.description,
+          stargazers_count : repo.stargazers_count,
+          forks_count : repo.forks_count,
+          language : repo.language
+        }));
     }
-    saveReposLocal(repos, user);
-    setGitUserRepos(repos);
+
+    saveReposLocal(reposs, user);
+    setGitUserRepos(reposs);
   }
 
   const saveReposLocal = (reposData, user) => {
