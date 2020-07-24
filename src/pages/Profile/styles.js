@@ -57,8 +57,8 @@ export const Sidebar = styled.div`
     text-decoration: none;
     text-align: center;
     font-weight: bold;
-    color: var(--color-lighter);
-    border: 1px solid var(--color-lighter);
+    color: var(--color-light);
+    border: 1px solid var(--color-light);
     border-radius: 8px;
 
     transition: 300ms;
@@ -66,8 +66,8 @@ export const Sidebar = styled.div`
 
   .handle > .button:hover {
     color: var(--color-secondary);
-    background-color: var(--color-lighter);
-    border: 1px solid var(--color-lighter);
+    background-color: var(--color-light);
+    border: 1px solid var(--color-light);
   }
 
   .handle > .button:last-child {
@@ -100,6 +100,14 @@ export const Sidebar = styled.div`
 
   .details {
     font-weight: 500;
+  }
+
+  && > a {
+    margin-top: 2rem;
+    font-size: 1rem;
+    color: var(--color-light);
+    text-decoration: underline;
+    cursor: pointer;
   }
 `;
 

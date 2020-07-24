@@ -76,6 +76,7 @@ function Profile(props) {
       description : repo.description,
       stargazers_count : repo.stargazers_count,
       forks_count : repo.forks_count,
+      html_url: repo.html_url,
       language : repo.language
     }));
 
@@ -107,6 +108,11 @@ function Profile(props) {
         <span className="details">{gitUserData.location}</span>
         <span className="details"><b>{gitUserData.followers}</b> seguidores</span>
         <span className="details"><b>{gitUserData.public_repos}</b> repositórios públicos</span>
+
+        <a 
+          href={gitUserData.html_url}
+          target="_blank"
+        >Ver github</a>
       </S.Sidebar>
       <main>
         {

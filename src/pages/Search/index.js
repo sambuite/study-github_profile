@@ -37,6 +37,7 @@ function Search() {
       location,
       public_repos,
       repos_url,
+      html_url,
       id  
     } } = await api.get(`/${gitUser}`);
 
@@ -49,6 +50,7 @@ function Search() {
       location,
       public_repos,
       repos_url,
+      html_url,
       id,
       repos: {}
     };
