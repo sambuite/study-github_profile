@@ -27,9 +27,29 @@ function Profile(props) {
   }
 
   const getUserRepos = async (user) => {
-    const userRepos = await api.get(`/${user}/repos`);
-    console.log(userRepos);
-    setGitUserRepos(userRepos.data);
+    const { data } = await api.get(`/${user}/repos`);
+
+    const repos = data.map(repo => {
+      const {
+        id,
+        name,
+        description,
+        stargazers_count,
+        forks_count,
+        language
+      } = repo;
+
+      return {
+        id,
+        name,
+        description,
+        stargazers_count,
+        forks_count,
+        language
+      }
+    })
+    
+    setGitUserRepos(data);
   }
 
   return (
