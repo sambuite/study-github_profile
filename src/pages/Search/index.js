@@ -49,7 +49,8 @@ function Search() {
       location,
       public_repos,
       repos_url,
-      id
+      id,
+      repos: {}
     };
 
     setGitUsersData([...gitUsersData, userData]);

@@ -14,19 +14,25 @@ function Profile(props) {
   useEffect(() => {
     const param = props.location.search;
     const user = param.replace('?user=', '');
-    getUserData(user);
-    getUserRepos(user);
+    handleUserData(user);
+    handleUserRepos(user);
   }, [props.location.search])
 
-  const getUserData = (user) => {
-    const localData = localStorage.getItem('users_data') 
-    const parsedData = JSON.parse(localData);
-    const userData = parsedData.filter(users => users.login === user);
+  const handleUserData = (user) => {
+    const usersData = getUserData(user);
+    const userData = usersData.filter(users => users.login === user);
     if(userData.length === 0) history.push('/');
     setGitUserData(...userData);
   }
 
-  const getUserRepos = async (user) => {
+  const getUserData = (user) => {
+    const localData = localStorage.getItem('users_data') 
+    const parsedData = JSON.parse(localData);
+
+    return parsedData;
+  }
+
+  const handleUserRepos = async (user) => {
     const { data } = await api.get(`/${user}/repos`);
 
     const repos = data.map(repo => {
@@ -48,8 +54,25 @@ function Profile(props) {
         language
       }
     })
-    
-    setGitUserRepos(data);
+
+    saveReposLocal(repos, user);
+    setGitUserRepos(repos);
+  }
+
+  const saveReposLocal = (reposData, user) => {
+    const userData = getUserData(user);
+
+    const userIndex = userData.findIndex(users => users.login === user);
+
+    userData[userIndex].repos = {
+      ...reposData
+    }
+
+    const data = [
+      ...userData
+    ]
+
+    localStorage.setItem("users_data", JSON.stringify(data));
   }
 
   return (
