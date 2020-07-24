@@ -1,4 +1,4 @@
-import React , { useState, useEffect } from 'react';
+import React , { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
 import * as S from './styles';
@@ -8,6 +8,8 @@ import api from '../../services/api';
 function Search() {
   const [ gitUser, setGitUser ] = useState('');
   const [ gitUsersData, setGitUsersData ] = useState([]);
+
+  const inputRef = useRef();
 
   useEffect(() => {
     const setLocalUsers = () => {
@@ -33,6 +35,7 @@ function Search() {
     saveUserLocal([...gitUsersData, userData]);
 
     setGitUser('');
+    inputRef.current.focus();
   }
 
   const handleUserInput = event => {
@@ -52,6 +55,7 @@ function Search() {
         <form onSubmit={handleAddUser}>
           <input 
             placeholder="Nome do usuário"
+            ref={inputRef}
             value={gitUser}
             onChange={handleUserInput}
           />
