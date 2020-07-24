@@ -36,11 +36,50 @@ export const Sidebar = styled.div`
   min-width: 18rem;
   height: 100vh;
 
+  div.handle {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    width: 80%;
+    margin-bottom: 4rem;
+  }
+
+  .handle > .button {
+    width: 100%;
+    max-width: 6rem;
+    padding: 1rem;
+    margin: 0 2rem 0 0;
+
+    cursor: pointer;
+
+    text-decoration: none;
+    text-align: center;
+    font-weight: bold;
+    color: var(--color-lighter);
+    border: 1px solid var(--color-lighter);
+
+    transition: 300ms;
+  }
+
+  .handle > .button:hover {
+    color: var(--color-secondary);
+    background-color: var(--color-lighter);
+    border: 1px solid var(--color-lighter);
+  }
+
+  .handle > .button:last-child {
+    margin: 0 0 0 2rem;
+
+    text-align: right;
+  }
+
   img {
     width: 14rem;
     border-radius: 50%;
     border: 2px solid var(--color-light);
-    margin: 3rem ;
+    margin: 3rem;
   }
 
   strong, span {
@@ -108,6 +147,7 @@ export const Repo = styled.div`
   a, .link {
     text-decoration: none;
     color: var(--color-primary);
+    cursor: pointer;
   }
 
   .link {

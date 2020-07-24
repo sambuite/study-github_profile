@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 
 import * as S from './styles';
 
@@ -16,7 +16,7 @@ function Profile(props) {
     const user = param.replace('?user=', '');
     handleUserData(user);
     handleUserRepos(user);
-  }, [props.location.search]);
+  }, []);
 
   const handleUserData = (user) => {
     const usersData = getUsersLocalData();
@@ -33,28 +33,14 @@ function Profile(props) {
   }
 
   const handleUserRepos = async (user) => {
-
     const usersData = getUsersLocalData();
     const userIndex = usersData.findIndex(users => users.login === user);
     const userRepos = usersData[userIndex].repos;
-    const userReposLength = Object.keys(userRepos);
     
-    let repos = [];
+    let repos = [...Object.values(userRepos)];
 
-    userReposLength.map(repo => {
-      repos.push(userRepos[repo])
-    })
-
-    if(userReposLength < 1)  {
-      const { data } = await api.get(`/${user}/repos`);
-      repos = data.map(repo => ({
-          id : repo.id,
-          name : repo.name,
-          description : repo.description,
-          stargazers_count : repo.stargazers_count,
-          forks_count : repo.forks_count,
-          language : repo.language
-        }));
+    if(Object.keys(userRepos) < 1)  {
+      repos = await getReposfromApi(user);
     }
 
     saveReposLocal(repos, user);
@@ -76,9 +62,45 @@ function Profile(props) {
     localStorage.setItem("users_data", JSON.stringify(data));
   }
 
+  const getReposfromApi = async (user) => {
+    const { data } = await api.get(`/${user}/repos`);
+    const filteredData = filterRepoData(data);
+
+    return filteredData;
+  }
+
+  const filterRepoData = (data) => {
+    const repos = data.map(repo => ({
+      id : repo.id,
+      name : repo.name,
+      description : repo.description,
+      stargazers_count : repo.stargazers_count,
+      forks_count : repo.forks_count,
+      language : repo.language
+    }));
+
+    return repos;
+  }
+
+  const updateRepos = async () => {
+    const user = gitUserData.login;
+    const repos = await getReposfromApi(user);
+    console.log(repos)
+    saveReposLocal(repos, user);
+    setGitUserRepos(repos);
+  }
   return (
     <S.Container>
       <S.Sidebar>
+        <div className="handle">
+          <Link to="/" className="button">Voltar</Link>
+          <a  
+            className="button"
+            onClick={updateRepos}>
+              Atualizar
+          </a>
+        </div>
+
         <img src={gitUserData.avatar_url} alt={gitUserData.name}/>
         <strong>{gitUserData.name}</strong>
         <span className="bio">"{gitUserData.bio}"</span>
