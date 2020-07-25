@@ -24,8 +24,8 @@ export const Header = styled.header`
   padding: 1rem 14rem;
   width: 100vw;
 
-  background-color: var(--color-primary);
-  color: var(--color-light);
+  background-color: ${props => props.theme.colors.primary};
+  color: ${props => props.theme.colors.light};
 
   form { 
     display: flex;
@@ -38,8 +38,8 @@ export const Header = styled.header`
     width: 80%;
     height: 2.6rem;
     margin-right: 1rem;
-    color: var(--color-dark);
-    border: 1px solid var(--color-light);
+    color: ${props => props.theme.colors.dark};
+    border: 1px solid ${props => props.theme.colors.light};
     border-radius: 8px;
     padding: 0 1rem;
   }
@@ -47,10 +47,10 @@ export const Header = styled.header`
   form > button {
     width: 20%;
     height: 2.6rem;
-    background: var(--color-primary);
-    border: 1px solid var(--color-light);
+    background: ${props => props.theme.colors.primary};
+    border: 1px solid ${props => props.theme.colors.light};
     border-radius: 8px;
-    color: var(--color-light);
+    color: ${props => props.theme.colors.light};
     font-weight: 700;
     text-decoration: none;
     font-size: 1rem;
@@ -58,9 +58,9 @@ export const Header = styled.header`
   }
 
   form > button:hover {
-    background-color: var(--color-light);
-    border: 1px solid var(--color-light);
-    color: var(--color-primary);
+    background-color: ${props => props.theme.colors.light};
+    border: 1px solid ${props => props.theme.colors.light};
+    color: ${props => props.theme.colors.primary};
   }
 `;
 
@@ -68,8 +68,8 @@ export const ProfileCard = styled.div`
   width: 20rem;
   height: 30rem;
   margin: 5rem 5rem 0;
-  background-color: var(--color-lighter);
-  box-shadow: 10px 9px 40px var(--color-shadow-light);
+  background-color: ${props => props.theme.colors.lighter};
+  box-shadow: 10px 9px 40px ${props => props.theme.colors.shadowLight};
   border-radius: 8px;
 
   display: flex;
@@ -79,7 +79,7 @@ export const ProfileCard = styled.div`
 
   a, .link {
     text-decoration: none;
-    color: var(--color-dark);
+    color: ${props => props.theme.colors.dark};
   }
 
   img {
@@ -100,7 +100,7 @@ export const ProfileCard = styled.div`
     font-size: 0.9rem;
     text-align: center;
     margin-top: 1.3rem;
-    color: var(--color-shadow-light)
+    color: ${props => props.theme.colors.shadowLight};
   }
 
   .details {
@@ -109,7 +109,7 @@ export const ProfileCard = styled.div`
   
   .link {
     margin-top: 1rem;
-    border: 1px solid var(--color-secondary);
+    border: 1px solid ${props => props.theme.colors.secondary};
     border-radius: 8px;
     width: 7rem;
     height: 3rem;
@@ -120,8 +120,8 @@ export const ProfileCard = styled.div`
   }
 
   .link:hover {
-    background-color: var(--color-secondary);
-    color: var(--color-lighter)
+    background-color: ${props => props.theme.colors.secondary};
+    color: ${props => props.theme.colors.lighter};
   }
 
 `;
@@ -129,6 +129,6 @@ export const ProfileCard = styled.div`
 export const Loading = styled.div`
   margin-top: 20rem;
   font-size: 4rem;
-  color: var(--color-secondary);
+  color: ${props => props.theme.colors.secondary};
   opacity: 40%;
 `;

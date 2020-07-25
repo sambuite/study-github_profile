@@ -112,7 +112,7 @@ function Profile(props) {
         <img src={gitUserData.avatar_url} alt={gitUserData.name}/>
         <strong>{gitUserData.name}</strong>
         <span className="bio">"{gitUserData.bio}"</span>
-        <span className="details">{gitUserData.location}</span>
+        <span className="details"><b>{gitUserData.location}</b></span>
         <span className="details"><b>{gitUserData.followers}</b> seguidores</span>
         <span className="details"><b>{gitUserData.public_repos}</b> repositórios públicos</span>
 

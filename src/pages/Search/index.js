@@ -104,9 +104,9 @@ function Search() {
               </a>
                 
               <span className="bio">{user.bio}</span>
-              <span className="details">{user.location}</span>
-              <span className="details">{user.followers} seguidores</span>
-              <span className="details">{user.public_repos} repositórios públicos</span>
+              <span className="details"><b>{user.location}</b></span>
+              <span className="details"><b>{user.followers} </b>seguidores</span>
+              <span className="details"><b>{user.public_repos}</b> repositórios públicos</span>
               <Link className="link" to={`/profile?user=${user.login}`}>Acessar perfil</Link>
             </S.ProfileCard>
           ))
